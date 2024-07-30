@@ -54,6 +54,7 @@ namespace Api
             );
 
             app.Run("https://localhost:54321");
+           // app.Run();
         }
     }
 }

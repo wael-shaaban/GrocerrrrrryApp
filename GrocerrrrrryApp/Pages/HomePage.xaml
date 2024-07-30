@@ -99,8 +99,12 @@
                 <DataTemplate x:DataType="Models:CategoryModel">
                     <Border StrokeThickness="0" StrokeShape="RoundRectangle 5">
                         <Grid>
-                            <Image Opacity="0.9" HeightRequest="175" WidthRequest="150" Source="{Binding Image}" Aspect="AspectFill"
-                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Opacity="0.9" HeightRequest="175" WidthRequest="150" Aspect="AspectFill"
+                               HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image.Source>
+                                    <UriImageSource Uri="{Binding Image}" CachingEnabled="True" />
+                                </Image.Source>
+                            </Image>
                             <Border StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10" Margin="5"
                                     VerticalOptions="End" 
                                     BackgroundColor="{DynamicResource White}">

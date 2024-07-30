@@ -6,31 +6,21 @@ using System.Text.Json;
 
 namespace GrocerrrrrryApp.Services
 {
-    public class CategoryService
+    public class CategoryService:BaseService
     {
-       
-        public CategoryService(IHttpClientFactory _httpClientFactory)
+        public CategoryService(IHttpClientFactory _httpClientFactory):base(_httpClientFactory)
         {
-            this.httpClientFactory = _httpClientFactory;
         }
         private IEnumerable<CategoryModel>? _categories;
-        private readonly IHttpClientFactory httpClientFactory;
         public async ValueTask<IEnumerable<CategoryModel>?> GetCategoriesAsync()
         {
             if (_categories is null)
             {
-                var httpClient = httpClientFactory.CreateClient(Helpers.Constants.HttpsClientName);
-                var data = await httpClient.GetAsync("/masters/categories");
-                if (data?.IsSuccessStatusCode == true)
-                {
-                    var response = await data.Content.ReadAsStringAsync();
-                    if (!string.IsNullOrEmpty(response))
-                    _categories = JsonConvert.DeserializeObject<IEnumerable<CategoryModel>>(response);
-                }
-                else
-                {
-                    return Enumerable.Empty<CategoryModel>();
-                }
+                var data = await HttpClient.GetAsync("/masters/categories");
+                var responseData = await HandleResponse<IEnumerable<CategoryModel>>(data, null);
+                if(responseData is null)
+                   return Enumerable.Empty<CategoryModel>();
+                _categories = responseData;
             }
             return _categories;
             #region staticData

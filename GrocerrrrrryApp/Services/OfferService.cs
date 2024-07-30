@@ -10,27 +10,16 @@ using System.Threading.Tasks;
 
 namespace GrocerrrrrryApp.Services
 {
-    public class OfferService
+    public class OfferService : BaseService
     {
-        public OfferService(IHttpClientFactory _httpClientFactory)
+        public OfferService(IHttpClientFactory _httpClientFactory) : base(_httpClientFactory)
         {
-            httpClientFactory = _httpClientFactory;
         }
         private readonly IHttpClientFactory httpClientFactory;
         public async Task<IEnumerable<OfferModel>?> GetOffersAsync()
         {
-            var httpClient = httpClientFactory.CreateClient(Helpers.Constants.HttpsClientName);
-            var data = await httpClient.GetAsync("/masters/offers");
-            if (data?.IsSuccessStatusCode == true)
-            {
-                var response = await data.Content.ReadAsStringAsync();
-                if (!string.IsNullOrEmpty(response))
-                {
-                    var puredata =  JsonConvert.DeserializeObject<IEnumerable<OfferModel>>(response);
-                    return puredata;
-                }
-            }
-            return Enumerable.Empty<OfferModel>();
+            var data = await HttpClient.GetAsync("/masters/offers");
+            return await HandleResponse(data, Enumerable.Empty<OfferModel>());
         }
     }
 }

@@ -34,7 +34,7 @@ namespace GrocerrrrrryApp.Models
             {
                if(image != value)
                 {
-                    image = $"https://github.com/Abhayprince/FruitVegBasketMAUI/blob/master/FruitVegBasket.Api/wwwroot/images/categories/{value}";
+                    image = $"https://raw.githubusercontent.com/wael-shaaban/GrocerrrrrryApp/master/Api/wwwroot/Images/Categories/{value}";
                 }   
             } 
         }
