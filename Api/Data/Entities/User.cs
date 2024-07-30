@@ -1,4 +1,5 @@
-﻿using grocercy.Api.Constants;
+﻿using Api.Constants;
+using grocercy.Api.Constants;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
