@@ -1,4 +1,8 @@
 
+using Api.Constants;
+using Api.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+
 namespace Api
 {
     public class Program
@@ -13,6 +17,10 @@ namespace Api
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services
+                     .AddDbContext<DataContext>(
+                    server => server.UseSqlServer
+                    (builder.Configuration.GetConnectionString(DatabaseConstants.GerogercyDBStringKey)));
 
             var app = builder.Build();
 
@@ -29,8 +37,23 @@ namespace Api
 
 
             app.MapControllers();
+            var mastersGroup = app.MapGroup("/masters")
+                         .AllowAnonymous();
 
-            app.Run();
+            mastersGroup.MapGet("/categories", async (DataContext context) =>
+                TypedResults.Ok(await context.Categories
+                .AsNoTracking()
+                .ToArrayAsync()
+                )
+            );
+            mastersGroup.MapGet("/offers", async (DataContext context) =>
+                TypedResults.Ok(await context.Offers
+                .AsNoTracking()
+                .ToArrayAsync()
+                )
+            );
+
+            app.Run("https://localhost:54321");
         }
     }
 }
