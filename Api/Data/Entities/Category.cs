@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GrocerrrrrryApp.Api.Data.Entities
+namespace Api.Data.Entities
 {
     [Table(nameof(Category))]   
     public class Category//Principle

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace GrocerrrrrryApp.Api.Data.Entities
+namespace Api.Data.Entities
 {
     public static class MigrationManager
     {
