@@ -59,6 +59,12 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Ubuntu-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Ubuntu-Regular.ttf" />
+	  <None Remove="Resources\Images\bxs_cart.svg" />
+	  <None Remove="Resources\Images\bxs_category.svg" />
+	  <None Remove="Resources\Images\bxs_help.svg" />
+	  <None Remove="Resources\Images\bxs_home.svg" />
+	  <None Remove="Resources\Images\bxs_list.svg" />
+	  <None Remove="Resources\Images\bxs_user.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
