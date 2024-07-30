@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GerogercyApp.Api.Data.Entities
+namespace GrocerrrrrryApp.Api.Data.Entities
 {
     [Table(nameof(User))]
     public class User//Dependent
