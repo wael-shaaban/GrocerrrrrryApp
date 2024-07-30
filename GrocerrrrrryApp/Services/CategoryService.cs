@@ -1,10 +1,10 @@
-﻿using groceryApp.Models;
+﻿using GrocerrrrrryApp.Models;
 using Microsoft.Extensions.Http;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text.Json;
 
-namespace groceryApp.Services
+namespace GrocerrrrrryApp.Services
 {
     public class CategoryService
     {

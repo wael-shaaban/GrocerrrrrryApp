@@ -1,4 +1,4 @@
-﻿using groceryApp.Models;
+﻿using GrocerrrrrryApp.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace groceryApp.Services
+namespace GrocerrrrrryApp.Services
 {
     public class OfferService
     {
