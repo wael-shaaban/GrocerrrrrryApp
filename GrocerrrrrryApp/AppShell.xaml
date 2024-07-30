@@ -3,13 +3,42 @@
     x:Class="GrocerrrrrryApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:pages="clr-namespace:GrocerrrrrryApp.Pages"
     xmlns:local="clr-namespace:GrocerrrrrryApp"
+    Shell.TabBarBackgroundColor="{DynamicResource Primary}"
+    Shell.TabBarTitleColor="{StaticResource White}"
+    Shell.BackgroundColor="{DynamicResource Secondary}"
+    Shell.TabBarForegroundColor="{DynamicResource White}"
     Shell.FlyoutBehavior="Disabled"
     Title="GrocerrrrrryApp">
-
-    <ShellContent
+    <Shell.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="{ AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary} }"/>
+    </Shell.Behaviors>
+    <!--<ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+        Route="MainPage" />-->
+    <TabBar>
+        <ShellContent Title="Home" 
+                      Icon="bxs_home"
+                      ContentTemplate="{DataTemplate pages:HomePage}"
+                      Route="Home"/>
+        <ShellContent Title="Category" 
+                      Icon="bxs_category"
+                      ContentTemplate="{DataTemplate pages:CategoriesPage}"
+                      Route="Category"/>
+        <ShellContent Title="Orders" 
+                        Icon="bxs_list"
+                        ContentTemplate="{DataTemplate pages:OrdersPage}"
+                        Route="Order"/>
+        <ShellContent Title="Home" 
+                Icon="bxs_user"
+                ContentTemplate="{DataTemplate pages:ProfilePage}"
+                Route="Profile"/>
+        <ShellContent Title="Help" 
+                Icon="bxs_help"
+                ContentTemplate="{DataTemplate pages:HelpPage}"
+                Route="Help"/>
+    </TabBar>
 </Shell>

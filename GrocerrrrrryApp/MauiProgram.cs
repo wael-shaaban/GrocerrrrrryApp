@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using CommunityToolkit;
+using CommunityToolkit.Maui;
 
 namespace GrocerrrrrryApp
 {
@@ -9,10 +11,11 @@ namespace GrocerrrrrryApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Ubuntu-Regular.ttf", "UbuntuRegular");
+                    fonts.AddFont("Ubuntu-Bold.ttf", "UbuntuSemibold");
                 });
 
 #if DEBUG
