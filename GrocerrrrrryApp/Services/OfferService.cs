@@ -15,7 +15,6 @@ namespace GrocerrrrrryApp.Services
         public OfferService(IHttpClientFactory _httpClientFactory) : base(_httpClientFactory)
         {
         }
-        private readonly IHttpClientFactory httpClientFactory;
         public async Task<IEnumerable<OfferModel>?> GetOffersAsync()
         {
             var data = await HttpClient.GetAsync("/masters/offers");

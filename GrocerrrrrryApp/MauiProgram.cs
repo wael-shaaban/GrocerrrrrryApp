@@ -51,6 +51,7 @@ namespace GrocerrrrrryApp
             //services
             builder.Services.AddSingleton<CategoryService>();
             builder.Services.AddTransient<OfferService>();
+            builder.Services.AddTransient<ProductService>();
             return builder.Build();
         }
     }

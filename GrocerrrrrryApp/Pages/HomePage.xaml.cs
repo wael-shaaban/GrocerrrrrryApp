@@ -5,9 +5,19 @@ namespace GrocerrrrrryApp.Pages;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage(HomePageViewModel homePageViewModel)
+    private readonly HomePageViewModel homePageViewModel;
+
+    public HomePage(HomePageViewModel homePageViewModel)
 	{
 		InitializeComponent();
 		this.BindingContext = homePageViewModel;
-	}
+        this.homePageViewModel = homePageViewModel;
+    }
+
+    private void ProductListControl_ProductAddRemoveClick(object sender, Controls.ProductEventArgs e)
+    {
+		if(e.Count>0)
+            homePageViewModel.AddProductCommand.Execute(e.PorductId);
+        else homePageViewModel.RemoveProductCommand.Execute(e.PorductId);
+    }
 }

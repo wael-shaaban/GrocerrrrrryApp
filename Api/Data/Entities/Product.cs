@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DLL.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq.Expressions;
 
 namespace Api.Data.Entities
 {
@@ -8,7 +11,7 @@ namespace Api.Data.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required,MaxLength(30)]
+        [Required, MaxLength(30)]
         public string Name { get; set; }
         [MaxLength(180)]
         public string? Image { get; set; }
@@ -96,6 +99,7 @@ namespace Api.Data.Entities
 
             return products;
         }
-
+        internal static readonly Expression<Func<Product, ProductDto>> DtoSelector =
+             (p) => new ProductDto(p.Id, p.Name, p.Image, p.Price, p.Unit, p.CategoryId);
     }
 }

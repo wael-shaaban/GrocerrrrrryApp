@@ -14,5 +14,6 @@ namespace GrocerrrrrryApp.Models
         public decimal Price { get; set; }
         public short CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public int ProdcutQuantity {  get; set; }   
     }
 }

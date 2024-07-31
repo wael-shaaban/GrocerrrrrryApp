@@ -1,6 +1,7 @@
 
 using Api.Constants;
 using Api.Data.Entities;
+using DLL.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api
@@ -52,13 +53,17 @@ namespace Api
                 .ToArrayAsync()
                 )
             );
-            mastersGroup.MapGet("/popular-products", async (DataContext context, int? count = 6) =>
+            app.MapGet("/popular-products", async (DataContext context, int? count=6) =>
             {
-                if(!count.HasValue&&count<1)
-                    count = 6;
-                var data   =  context.Products.OrderBy(x=>Guid.NewGuid()).AsNoTracking().ToArrayAsync();
-                return TypedResults.Ok(data);
+                var randomProducts = await context.Products
+                                        .AsNoTracking()
+                                        .OrderBy(p => Guid.NewGuid())
+                                        .Take(count.Value)
+                                        .Select(Product.DtoSelector)
+                                        .ToArrayAsync();
+                return TypedResults.Ok(randomProducts);
             });
+
             app.Run("https://localhost:54321");
            // app.Run();
         }
