@@ -48,6 +48,7 @@ namespace GrocerrrrrryApp
             builder.Services.AddSingleton<HomePage>();
             //viewmodels
             builder.Services.AddSingleton<HomePageViewModel>();
+            builder.Services.AddSingleton<CartViewModel>();
             //services
             builder.Services.AddSingleton<CategoryService>();
             builder.Services.AddTransient<OfferService>();

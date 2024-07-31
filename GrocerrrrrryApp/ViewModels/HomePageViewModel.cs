@@ -12,6 +12,7 @@ namespace GrocerrrrrryApp.ViewModels
         private readonly CategoryService categoryService;
         private readonly OfferService offerService;
         private readonly ProductService productService;
+        private readonly CartViewModel cartViewModel;
         [ObservableProperty]
         ObservableCollection<CategoryModel> categories;
 
@@ -23,11 +24,15 @@ namespace GrocerrrrrryApp.ViewModels
 
         [ObservableProperty]
         bool isBusy = true;
-        public HomePageViewModel(CategoryService categoryService, OfferService offerService,ProductService productService)
+
+        [ObservableProperty]
+        int cartItemsCount;
+        public HomePageViewModel(CategoryService categoryService, OfferService offerService,ProductService productService,CartViewModel cartViewModel)
         {
             this.categoryService = categoryService;
             this.offerService = offerService;
             this.productService = productService;
+            this.cartViewModel = cartViewModel;
             Categories = new ObservableCollection<CategoryModel>();
             Offers = new ObservableCollection<OfferModel>();
             PopularProducts = new ObservableCollection<ProductDto>(); 
@@ -53,15 +58,22 @@ namespace GrocerrrrrryApp.ViewModels
             }
         }
         [RelayCommand]
-        private void AddProduct(int productId) => UpdateProdcut(productId, 1);
+        private void AddToCart(int productId) => UpdateCart(productId, 1);
         [RelayCommand]
-        private void RemoveProduct(int productId)=>UpdateProdcut(productId, -1);
+        private void RemoveFromCart(int productId)=>UpdateCart(productId, -1);
 
-        private void UpdateProdcut(int productId,int count)
+        private void UpdateCart(int productId,int count)
         {
             var selectedProduct = PopularProducts.FirstOrDefault(x => x.Id == productId);
             if (selectedProduct is not null)
+            {
                 selectedProduct.ProductQuantity += count;
+                if (count == 1)//add new product to cart         
+                    cartViewModel.AddToCartCommand.Execute(selectedProduct);
+                else if(count ==-1)// can be reomved but I add it for readability only
+                       cartViewModel.RemoveFromCartCommand.Execute(selectedProduct.Id);
+                CartItemsCount = cartViewModel.CartItemsCount;
+            }
         }
     }
 }

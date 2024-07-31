@@ -17,7 +17,7 @@ public partial class HomePage : ContentPage
     private void ProductListControl_ProductAddRemoveClick(object sender, Controls.ProductEventArgs e)
     {
 		if(e.Count>0)
-            homePageViewModel.AddProductCommand.Execute(e.PorductId);
-        else homePageViewModel.RemoveProductCommand.Execute(e.PorductId);
+            homePageViewModel.AddToCartCommand.Execute(e.PorductId);
+        else homePageViewModel.RemoveFromCartCommand.Execute(e.PorductId);
     }
 }
