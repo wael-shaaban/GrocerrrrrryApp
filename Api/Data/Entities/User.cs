@@ -28,7 +28,7 @@ namespace Api.Data.Entities
         public int RoleId { get; set; }
         public virtual Role Role { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }    
-        public static IEnumerable<User> GetInitialUsers()
+        public static IEnumerable<User> GetInitialData()
         {
             return new List<User>
             {

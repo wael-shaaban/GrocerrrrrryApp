@@ -11,7 +11,7 @@ namespace Api.Data.Entities
         public int Id { get; set; }
         [Required, MaxLength(20)]
         public string Name { get; set; }
-        internal static IEnumerable<Role> GetInitialRoles()
+        internal static IEnumerable<Role> GetInitialData()
         {
             return new List<Role>()
             {

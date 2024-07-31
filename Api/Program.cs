@@ -52,9 +52,29 @@ namespace Api
                 .ToArrayAsync()
                 )
             );
-
+            mastersGroup.MapGet("/popular-products", async (DataContext context, int? count = 6) =>
+            {
+                if(!count.HasValue&&count<1)
+                    count = 6;
+                var data   =  context.Products.OrderBy(x=>Guid.NewGuid()).AsNoTracking().ToArrayAsync();
+                return TypedResults.Ok(data);
+            });
             app.Run("https://localhost:54321");
            // app.Run();
         }
+    }
+}//TypeReslut class in asp.net core
+
+public class TypeResult<T>
+{
+    public bool IsSuccess { get; set; }
+    public string Message { get; set; }
+    public T Data { get; set; }
+
+    public TypeResult(bool isSuccess, string message, T data)
+    {
+        IsSuccess = isSuccess;
+        Message = message;
+        Data = data;
     }
 }

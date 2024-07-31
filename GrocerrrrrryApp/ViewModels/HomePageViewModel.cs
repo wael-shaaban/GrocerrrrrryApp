@@ -16,6 +16,8 @@ namespace GrocerrrrrryApp.ViewModels
         [ObservableProperty]
         ObservableCollection<OfferModel> offers;
 
+        [ObservableProperty]
+        bool isBusy = true;
         public HomePageViewModel(CategoryService categoryService, OfferService offerService)
         {
             this.categoryService = categoryService;
@@ -26,11 +28,19 @@ namespace GrocerrrrrryApp.ViewModels
         [RelayCommand]
         public async Task InitializeAsync()
         {
-            var offerTask = offerService.GetOffersAsync();
-            foreach (var category in await categoryService.GetCategoriesAsync())
-                Categories.Add(category);
-            foreach (var offer in await offerTask)
-                Offers.Add(offer);
+            IsBusy = true;
+            try
+            {
+                var offerTask = offerService.GetOffersAsync();
+                foreach (var category in await categoryService.GetCategoriesAsync())
+                    Categories.Add(category);
+                foreach (var offer in await offerTask)
+                    Offers.Add(offer);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }
