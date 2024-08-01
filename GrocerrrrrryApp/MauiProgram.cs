@@ -53,6 +53,7 @@ namespace GrocerrrrrryApp
             builder.Services.AddSingleton<CategoryService>();
             builder.Services.AddTransient<OfferService>();
             builder.Services.AddTransient<ProductService>();
+            builder.Services.AddTransient<CartPage>();
             return builder.Build();
         }
     }

@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace GrocerrrrrryApp.ViewModels
 {
-    public partial class HomePageViewModel : ObservableObject
+    public partial class HomePageViewModel : ObservableObject,IDisposable
     {
         private readonly CategoryService categoryService;
         private readonly OfferService offerService;
@@ -35,11 +35,27 @@ namespace GrocerrrrrryApp.ViewModels
             this.cartViewModel = cartViewModel;
             Categories = new ObservableCollection<CategoryModel>();
             Offers = new ObservableCollection<OfferModel>();
-            PopularProducts = new ObservableCollection<ProductDto>(); 
+            PopularProducts = new ObservableCollection<ProductDto>();
+            cartViewModel.CartItemUpdated += CartUpdated;
+            cartViewModel.CartItemRemoved += CartRemoved;
+            cartViewModel.CartCountUpdated += CartCountUpdated;
         }
+
+        private void CartCountUpdated(object? sender, int cartItemsCount) => CartItemsCount = cartItemsCount;
+
+        private void CartRemoved(object? sender, int prodcutId) => CartUpdateRemove(prodcutId, 0);
+        private void CartUpdated(object? sender, CartItemModel cartItem) => CartUpdateRemove(cartItem.ProductId, cartItem.Quantity);
+        private void CartUpdateRemove(int productId,int quantity)
+        {
+            var product = PopularProducts.FirstOrDefault(x => x.Id ==productId);
+            if (product is not null)
+                product.ProductQuantity = quantity;
+        }
+        private bool isInitialize = false;
         [RelayCommand]
         public async Task InitializeAsync()
         {
+            if (isInitialize) return;
             IsBusy = true;
             try
             {
@@ -50,7 +66,8 @@ namespace GrocerrrrrryApp.ViewModels
                 foreach (var offer in await offerTask)
                     Offers.Add(offer);
                 foreach (var product in await productTask)
-                    PopularProducts.Add(product);
+                    PopularProducts.Add(product);   
+                isInitialize = true;
             }
             finally
             {
@@ -74,6 +91,13 @@ namespace GrocerrrrrryApp.ViewModels
                        cartViewModel.RemoveFromCartCommand.Execute(selectedProduct.Id);
                 CartItemsCount = cartViewModel.CartItemsCount;
             }
+        }
+
+        public void Dispose()
+        {
+            cartViewModel.CartItemUpdated -= CartUpdated;
+            cartViewModel.CartItemRemoved -= CartRemoved;
+            cartViewModel.CartCountUpdated-= CartCountUpdated;
         }
     }
 }

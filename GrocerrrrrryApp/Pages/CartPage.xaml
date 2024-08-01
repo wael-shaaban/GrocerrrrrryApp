@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GrocerrrrrryApp.Pages.CartPage"
+             xmlns:vm="clr-namespace:GrocerrrrrryApp.ViewModels"
+             xmlns:controls="clr-namespace:GrocerrrrrryApp.Controls"
+             xmlns:models="clr-namespace:GrocerrrrrryApp.Models"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="{DynamicResource Primary}"
+             Padding="0"
+             x:DataType="vm:CartViewModel"
+             Title="CartPage">
+    <ContentPage.Resources>
+        <Style TargetType="Button" x:Key="CartBtn">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="HeightRequest" Value="30"/>
+            <Setter Property="WidthRequest" Value="40"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="*,auto"
+          Padding="0"
+          Margin="0">
+        <ScrollView Grid.Row="0" Padding="5">
+            <CollectionView ItemsSource="{Binding CartItems}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:CartItemModel">
+                        <Border BackgroundColor="{DynamicResource White}" Padding="8,10" StrokeShape="RoundRectangle 5" StrokeThickness="0">
+                            <Grid ColumnDefinitions="*,125,100">
+                                <Label Text="{Binding PoductName}" />
+                                <Border Grid.Column="1" Stroke="{DynamicResource Primary}" IsVisible="True"  
+                                          StrokeThickness="1" StrokeShape="RoundRectangle 6" BackgroundColor="{DynamicResource White}">
+                                                                    <Border.Triggers>
+                                                                        <DataTrigger TargetType="Border"
+                                                       Binding="{Binding ProductQuantity}"
+                                                       Value="0">
+                                                                            <Setter Property="IsVisible" Value="False"/>
+                                                                        </DataTrigger>
+                                                                    </Border.Triggers>
+                                                                    <Grid ColumnDefinitions="auto,*,auto">
+                                                                        <Button Text="+" Style="{StaticResource CartBtn}"
+                                                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=IncreaseProductToCartCommand}"
+                                                                                CommandParameter="{Binding Id}"
+                                                                      ></Button>
+                                                                        <Label Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"
+                                                Text="{Binding Quantity}"
+                                                ></Label>
+                                                                   <Button Grid.Column="2" Text="-" Style="{StaticResource CartBtn}"
+                                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=RemoveFromCartCommand}"
+                                                                CommandParameter="{Binding ProductId}"                                                >
+</Button>
+                                                                    </Grid>
+                                </Border>
+                                <Label Grid.Column="2" Text="{Binding Amount,StringFormat='${0}'}" FontSize="15" VerticalOptions="Center" HorizontalOptions="End"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <Border Grid.Row="1" Padding="10" Margin="0" StrokeShape="RoundRectangle 40,40,0,0" BackgroundColor="{DynamicResource White}">
+            <Border.Shadow>
+                <Shadow Offset="1,1" Radius="50" Opacity="1" Brush="{DynamicResource Black}"/>
+            </Border.Shadow>
+            <Grid ColumnDefinitions="*,auto">
+                <Label Text="{Binding TotalAmount ,StringFormat='Total Amount ${0}'}" FontSize="16" FontAttributes="Bold" Grid.Column="0" VerticalOptions="Center"></Label>
+                <Button Grid.Column="1" VerticalOptions="Center" HorizontalOptions="End" Text="Proceed The Checkout"></Button>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>
