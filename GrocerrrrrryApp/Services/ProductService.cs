@@ -14,5 +14,10 @@ namespace GrocerrrrrryApp.Services
             var data = await HttpClient.GetAsync("/popular-products");
             return await HandleResponse(data, Enumerable.Empty<ProductDto>());
         }
+        public async Task<IEnumerable<ProductDto>?> GetCategoryProductsAsync(short categoryId)
+        {
+            var data = await HttpClient.GetAsync($"/categories/{categoryId}/products");
+            return await HandleResponse(data, Enumerable.Empty<ProductDto>());
+        }
     }
 }

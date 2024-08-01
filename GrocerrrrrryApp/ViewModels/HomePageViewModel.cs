@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DLL.DTOs;
 using GrocerrrrrryApp.Models;
+using GrocerrrrrryApp.Pages;
 using GrocerrrrrryApp.Services;
 using System.Collections.ObjectModel;
 
@@ -42,7 +43,6 @@ namespace GrocerrrrrryApp.ViewModels
         }
 
         private void CartCountUpdated(object? sender, int cartItemsCount) => CartItemsCount = cartItemsCount;
-
         private void CartRemoved(object? sender, int prodcutId) => CartUpdateRemove(prodcutId, 0);
         private void CartUpdated(object? sender, CartItemModel cartItem) => CartUpdateRemove(cartItem.ProductId, cartItem.Quantity);
         private void CartUpdateRemove(int productId,int quantity)
@@ -92,6 +92,19 @@ namespace GrocerrrrrryApp.ViewModels
                 CartItemsCount = cartViewModel.CartItemsCount;
             }
         }
+        [RelayCommand]
+        async Task GotoCategoryPage(CategoryModel _selectedcategory)
+        {
+            if(_selectedcategory is not null)
+            {
+                var parameter = new ShellNavigationQueryParameters
+                {
+                    [nameof(CategoryProductPageViewModel.SelectedCategory)] = _selectedcategory
+                }; 
+                await Shell.Current.GoToAsync(nameof(CategoryProductPage), parameter);
+            }
+        }
+
 
         public void Dispose()
         {

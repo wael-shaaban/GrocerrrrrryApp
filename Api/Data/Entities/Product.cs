@@ -81,6 +81,7 @@ namespace Api.Data.Entities
 
             var seasonalFruits = new List<Product>
             {
+               
                 new(142, "Strawberries", null, 2.99m, "per pound", 2), new(143, "Blueberries", null, 3.99m, "per pound", 2), new(144, "Raspberries", null, 4.99m, "per pound", 2), new(145, "Blackberries", null, 3.99m, "per pound", 2), new(146, "Watermelon", null, 0.39m, "per pound", 2), new(147, "Cantaloupe", null, 1.99m, "each", 2), new(148, "Honeydew", null, 2.49m, "each", 2), new(149, "Peaches", null, 1.99m, "per pound", 2), new(150, "Plums", null, 2.99m, "per pound", 2), new(151, "Apricots", null, 2.99m, "per pound", 2), new(152, "Nectarines", null, 3.49m, "per pound", 2), new(153, "Cherries", null, 4.99m, "per pound", 2), new(154, "Grapes", null, 2.99m, "per pound", 2), new(155, "Oranges", null, 0.99m, "per pound", 2), new(156, "Mangoes", null, 1.99m, "each", 2), new(157, "Pineapple", null, 2.99m, "each", 2), new(158, "Pears", null, 2.99m, "per pound", 2), new(159, "Apples", null, 1.99m, "per pound", 2), new(160, "Kiwi", null, 0.99m, "each", 2), new(161, "Limes", null, 0.49m, "each", 2)
             };
             products.AddRange(seasonalFruits);

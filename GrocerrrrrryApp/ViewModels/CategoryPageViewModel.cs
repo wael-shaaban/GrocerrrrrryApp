@@ -14,8 +14,6 @@ namespace GrocerrrrrryApp.ViewModels
 {
     public partial class CategoryPageViewModel : ObservableObject
     {
-
-
         private readonly CategoryService categoryService;
         [ObservableProperty]
         CategoryModel selectedCategory;
@@ -39,7 +37,13 @@ namespace GrocerrrrrryApp.ViewModels
        async Task GotoCategoryProductPage()
         {
             if (SelectedCategory is not null)
-                await Shell.Current.GoToAsync(nameof(CategoryProductPage));
+            {
+                var parameter = new ShellNavigationQueryParameters
+               {
+                     [nameof(CategoryProductPageViewModel.SelectedCategory)] = SelectedCategory          
+               };
+                await Shell.Current.GoToAsync(nameof(CategoryProductPage),parameter);
+            }
         }
     }
 }

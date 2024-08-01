@@ -3,6 +3,7 @@ using Microsoft.Extensions.Http;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text.Json;
+using Xamarin.Google.Crypto.Tink.Shaded.Protobuf;
 
 namespace GrocerrrrrryApp.Services
 {
@@ -62,5 +63,14 @@ namespace GrocerrrrrryApp.Services
         }
         public async ValueTask<IEnumerable<CategoryModel>?> GetMainCategories() =>
             (await GetCategoriesAsync())?.Where(x => x.ParentId == 0);
+
+        public async ValueTask<IEnumerable<CategoryModel>?> GetMainOrSiblingCategoriesAsync(short categoryId)
+        {
+            var allcatgeories = await GetCategoriesAsync(); 
+            var mainCategory = allcatgeories.First(c=>c.Id == categoryId);
+            var isMain = mainCategory.IsMainCategory ? categoryId : mainCategory.ParentId;
+            return  allcatgeories.Where(x => x.ParentId == isMain).ToList();
+        }
+
     }
 }

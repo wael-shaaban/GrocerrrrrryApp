@@ -64,6 +64,17 @@ namespace Api
                 return TypedResults.Ok(randomProducts);
             });
 
+
+            app.MapGet("/categories/{categoryId}/products", async (DataContext context, short categoryId) =>
+            {
+                var data =await context.Products
+                                  .Include(p => p.Category)
+                                  .AsNoTracking()
+                                  .Where(p => p.CategoryId == categoryId||p.Category.ParentId == categoryId)
+                                  .Select(Product.DtoSelector)
+                                  .ToArrayAsync();
+                TypedResults.Ok(data);
+            });
             app.Run("https://localhost:54321");
            // app.Run();
         }
