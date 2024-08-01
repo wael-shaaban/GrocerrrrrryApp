@@ -46,14 +46,20 @@ namespace GrocerrrrrryApp
 #endif
             //pages
             builder.Services.AddSingleton<HomePage>();
+            builder.Services.AddSingleton<CategoriesPage>();
             //viewmodels
             builder.Services.AddSingleton<HomePageViewModel>();
-            builder.Services.AddSingleton<CartViewModel>();
+            builder.Services.AddSingleton<CartViewModel>(); 
+            builder.Services.AddScoped<CategoryPageViewModel>();
             //services
             builder.Services.AddSingleton<CategoryService>();
             builder.Services.AddTransient<OfferService>();
             builder.Services.AddTransient<ProductService>();
             builder.Services.AddTransient<CartPage>();
+
+
+            //mix
+            builder.Services.AddTransientWithShellRoute<CategoryProductPage, CategoryProductPageViewModel>(nameof(CategoryProductPage));
             return builder.Build();
         }
     }
